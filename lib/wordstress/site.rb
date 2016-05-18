@@ -235,6 +235,7 @@ module Wordstress
       wpcount = @wp_vuln[version[:version]]["vulnerabilities"].count
       plugincount = @plugin_vulns.count
       themecount = @theme_vulns.count
+      totalcount = wpcount + plugincount + themecount
 
       type = "OK"
       exitcode = 0
@@ -249,7 +250,7 @@ module Wordstress
         exitcode = 2
       end
 
-      puts "#{type} - #{wpcount} wordpress vulnerabilities, #{plugincount} plugin vulnerabilities and #{themecount} theme vulnerabilities found"
+      puts "#{type} - #{wpcount} wordpress vulnerabilities, #{plugincount} plugin vulnerabilities and #{themecount} theme vulnerabilities found | total=#{totalcount}, wp=#{wpcount}, plugin=#{plugincount}, theme=#{themecount}"
       return exitcode
     end
 
