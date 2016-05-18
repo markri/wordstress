@@ -129,7 +129,7 @@ begin
         v = site.get_theme_vulnerabilities(t[:name])
         unless v[t[:name]].nil?
           v[t[:name]]["vulnerabilities"].each do |vv|
-            if Gem::Version.new(t[:version]) <= Gem::Version.new(vv["fixed_in"])
+            if Gem::Version.new(t[:version]) < Gem::Version.new(vv["fixed_in"])
               $logger.err "Theme #{vv["title"]} is vulnerable. Detected: #{t[:version]}. Safe: #{vv["fixed_in"]}"
               site.theme_vulns << {:title=>vv["title"], :cve=>vv["references"]["cve"], :url=>vv["references"]["url"], :detected=>t[:version], :fixed_in=>vv["fixed_in"]}
             end
@@ -145,7 +145,7 @@ begin
         v = site.get_plugin_vulnerabilities(t[:name])
         unless v[t[:name]].nil?
           v[t[:name]]["vulnerabilities"].each do |vv|
-            if Gem::Version.new(t[:version]) <= Gem::Version.new(vv["fixed_in"])
+            if Gem::Version.new(t[:version]) < Gem::Version.new(vv["fixed_in"])
               $logger.err "Plugin #{vv["title"]} is vulnerable. Detected: #{t[:version]}. Safe: #{vv["fixed_in"]}"
               site.plugin_vulns << {:title=>vv["title"], :cve=>vv["references"]["cve"], :url=>vv["references"]["url"], :detected=>t[:version], :fixed_in=>vv["fixed_in"]}
             end
